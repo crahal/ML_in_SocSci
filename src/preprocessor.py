@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 from dtypes_dict import dtypes_dict
-from query_list import query_list
+from query_dict import query_dict
 from datetime import datetime
 import string
 import numpy as np
@@ -31,9 +31,12 @@ def subj_preprocessor(raw_file, subj, search_path):
         replace('[{}]'.format(string.punctuation), '', regex=True)
     raw_file['clean_abstract'] = raw_file['clean_abstract'].str.lower()
     raw_file['is_ML'] = 0
-    for query in query_list:
-        raw_file[query] = np.where(raw_file['clean_abstract'].str.contains(query), 1, 0)
-        raw_file['is_ML'] = np.where(raw_file['clean_abstract'].str.contains(query),
+    for query in query_dict.keys():
+        raw_file[query] = 0
+    for query, term in query_dict.items():
+        raw_file[query] = np.where(raw_file['clean_abstract'].str.contains(term),
+                                   1, raw_file[query])
+        raw_file['is_ML'] = np.where(raw_file['clean_abstract'].str.contains(term),
                                      1, raw_file['is_ML'])
     raw_file.to_csv(os.path.join(search_path, 'clean', subj+'.tsv'), sep='\t')
 
@@ -60,7 +63,9 @@ def main_preprocessor(search_path):
                          compression='zip', sep='\t',
                          usecols=list(usecols_list),
                          dtype=dtypes_dict,
-                         parse_dates=['prism:coverDate'])
+                         parse_dates=['prism:coverDate'],
+                         nrows=100000,
+                         )
         df['prism:coverDate'] = pd.to_datetime(df['prism:coverDate'], format='%Y-%d-%m')
         subj_preprocessor(df, key, search_path)
 
