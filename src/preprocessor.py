@@ -64,7 +64,6 @@ def main_preprocessor(search_path):
                          usecols=list(usecols_list),
                          dtype=dtypes_dict,
                          parse_dates=['prism:coverDate'],
-                         nrows=100000,
                          )
         df['prism:coverDate'] = pd.to_datetime(df['prism:coverDate'], format='%Y-%d-%m')
         subj_preprocessor(df, key, search_path)
