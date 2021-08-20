@@ -1,4 +1,4 @@
-<img src="./figures/NL_Over_Time.png" width="700"/>
+<img src="./figures/ML_Over_Time.png" width="700"/>
 
 ## :bar_chart: A quintessential case of Amara’s Law?  :chart_with_upwards_trend:
 
