@@ -39,7 +39,7 @@ def figure_plotter():
         with open(os.path.join(search_path, 'scalars', subj + '.txt'), 'r') as f:
             scalar_dict[subj] = float(f.read())
 
-    fig, (ax1) = plt.subplots(1, 1, figsize=(15, 7.25))
+    fig, (ax1) = plt.subplots(1, 1, figsize=(15, 7.5))
     comb_temporal['pc_ML'].plot(ax=ax1, color ='#377eb8',zorder=2)
     ax1.tick_params(axis='y', which='minor', bottom=False)
     ax1.set_xlim(0, ax1.get_xlim()[1])
@@ -141,7 +141,7 @@ def figure_plotter():
     ax1.annotate("Hopfield (1982) popularizes\n      'Hopfield networks'",
                  xy=(491, comb_temporal.iloc[491]['pc_ML'] + .03), xycoords='data',
                  xytext=(201, comb_temporal.iloc[491]['pc_ML'] + .3),
-                 fontsize=8, textcoords='data',
+                 fontsize=9.5, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
                            linewidth=0.25, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
@@ -151,7 +151,7 @@ def figure_plotter():
     ax1.annotate("Leo Breiman (1996):\n'Bagging Predictors'",
                  xy=(865, comb_temporal.iloc[865]['pc_ML'] + .03), xycoords='data',
                  xytext=(600, comb_temporal.iloc[865]['pc_ML'] + .275),
-                 fontsize=8, textcoords='data',
+                 fontsize=9.5, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
                            linewidth=0.25, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
@@ -161,7 +161,7 @@ def figure_plotter():
     ax1.annotate("  Friedman et al. (2001): 'The\nElements of Statistical Learning'",
                  xy=(978, comb_temporal.iloc[978]['pc_ML'] + .005), xycoords='data',
                  xytext=(680, comb_temporal.iloc[978]['pc_ML'] + .6),
-                 fontsize=8, textcoords='data',
+                 fontsize=9.5, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
                            linewidth=0.25, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
@@ -171,7 +171,7 @@ def figure_plotter():
     ax1.annotate("   ImageNet improves\nvisual object recognition",
                  xy=(1201, comb_temporal.iloc[1201]['pc_ML'] + .03), xycoords='data',
                  xytext=(901, comb_temporal.iloc[1201]['pc_ML'] + .8),
-                 fontsize=8, textcoords='data',
+                 fontsize=9.5, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
                            linewidth=0.25, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
@@ -181,7 +181,7 @@ def figure_plotter():
     ax1.annotate("   Nate Silver predicts\n50 states in US election",
                  xy=(1293, comb_temporal.iloc[1293]['pc_ML'] + .03), xycoords='data',
                  xytext=(1000, comb_temporal.iloc[1293]['pc_ML'] + 1.2),
-                 fontsize=8, textcoords='data',
+                 fontsize=9.5, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
                            linewidth=0.25, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
@@ -191,7 +191,7 @@ def figure_plotter():
     ax1.annotate("Google releases powerful\nTensorFlow library for ML",
                  xy=(1371, comb_temporal.iloc[1371]['pc_ML']+.02),xycoords='data',
                  xytext=(1071, comb_temporal.iloc[1371]['pc_ML']+1.4),
-                 fontsize=8, textcoords='data',
+                 fontsize=9.5, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
                            linewidth=0.25, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",

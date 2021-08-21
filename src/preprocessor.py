@@ -10,6 +10,34 @@ from tqdm import tqdm
 window_days = 14
 
 
+def make_full_scalars(search_path):
+    """ Save to disk the scalar percent_ML scores"""
+    for subj in ['SOCI', 'ECON', 'BUSI']:
+        df = pd.read_csv(os.path.join(search_path, 'clean', subj + '.tsv'),
+                       sep='\t', usecols = ['is_ML'])
+        df_isML = (df['is_ML'].sum()/len(df))*100
+        with open(os.path.join(search_path, 'scalars', subj + '.txt'), 'w') as f:
+            f.write('%f' % df_isML)
+
+
+def make_time_scalars(search_path):
+    """ Print out before and after summary statistics"""
+    soci = pd.read_csv(os.path.join(search_path, 'clean', 'SOCI.tsv'),
+                       sep='\t', parse_dates=['prism:coverDate'])
+    econ = pd.read_csv(os.path.join(search_path, 'clean', 'ECON.tsv'),
+                       sep='\t', parse_dates=['prism:coverDate'])
+    busi = pd.read_csv(os.path.join(search_path, 'clean', 'BUSI.tsv'),
+                       sep='\t', parse_dates=['prism:coverDate'])
+    merged = soci.append(econ, ignore_index=True)
+    merged = merged.append(busi, ignore_index=True)
+    merged_before = merged[merged['prism:coverDate'].dt.date < datetime.date(2010, 1, 1)]
+    merged_after = merged[merged['prism:coverDate'].dt.date >= datetime.date(2010, 1, 1)]
+    before_2010 = (merged_before['is_ML'].sum() / len(merged_before['is_ML'])) * 100
+    after_2010 = (merged_after['is_ML'].sum() / len(merged_after['is_ML'])) * 100
+    print(f'Percent of papers "is_ML" before 2010: {before_2010}')
+    print(f'Percent of papers "is_ML" after 2010: {after_2010}')
+
+
 def make_df_topics(search_path):
     print('Making Topics DataFrame')
     topics_list = ['is_ML', 'Basic ML', 'Deep Learning', 'Support Vector', 'Trees', 'Shrinkage',
@@ -99,6 +127,8 @@ def main_preprocessor(search_path):
         df['prism:coverDate'] = pd.to_datetime(df['prism:coverDate'], format='%Y-%d-%m', errors='coerce')
         subj_preprocessor(df, key, search_path)
     make_df_topics(search_path)
+    make_time_scalars(search_path)
+    make_full_scalars(search_path)
 
 
 if __name__ == '__main__':
