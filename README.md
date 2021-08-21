@@ -1,6 +1,6 @@
-<img src="./figures/NL_Over_Time.png" width="700"/>
+<img src="./figures/ML_Over_Time.png" width="1100"/>
 
-## :bar_chart: A quintessential case of Amara’s Law?  :chart_with_upwards_trend:
+# Machine Learning in the Academic Social Sciences: a quintessential case of Amara’s Law?
 
 ![coverage](https://img.shields.io/badge/Purpose-Commentary-yellow)
 [![Generic badge](https://img.shields.io/badge/Python-3.8-red.svg)](https://shields.io/)
