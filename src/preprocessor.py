@@ -22,6 +22,7 @@ def make_full_scalars(search_path):
 
 def make_time_scalars(search_path):
     """ Print out before and after summary statistics"""
+    import datetime
     soci = pd.read_csv(os.path.join(search_path, 'clean', 'SOCI.tsv'),
                        sep='\t', parse_dates=['prism:coverDate'])
     econ = pd.read_csv(os.path.join(search_path, 'clean', 'ECON.tsv'),
@@ -30,12 +31,18 @@ def make_time_scalars(search_path):
                        sep='\t', parse_dates=['prism:coverDate'])
     merged = soci.append(econ, ignore_index=True)
     merged = merged.append(busi, ignore_index=True)
-    merged_before = merged[merged['prism:coverDate'].dt.date < datetime.date(2010, 1, 1)]
-    merged_after = merged[merged['prism:coverDate'].dt.date >= datetime.date(2010, 1, 1)]
-    before_2010 = (merged_before['is_ML'].sum() / len(merged_before['is_ML'])) * 100
-    after_2010 = (merged_after['is_ML'].sum() / len(merged_after['is_ML'])) * 100
-    print(f'Percent of papers "is_ML" before 2010: {before_2010}')
-    print(f'Percent of papers "is_ML" after 2010: {after_2010}')
+    merged_before = merged[merged['prism:coverDate'].dt.date < datetime.date(2017, 1, 1)]
+    merged_after = merged[merged['prism:coverDate'].dt.date >= datetime.date(2017, 1, 1)]
+    before_2017 = (merged_before['is_ML'].sum() / len(merged_before['is_ML'])) * 100
+    after_2017 = (merged_after['is_ML'].sum() / len(merged_after['is_ML'])) * 100
+    print(f'Percent of papers "is_ML" before 2017: {before_2017}')
+    print(f'Percent of papers "is_ML" after 2017: {after_2017}')
+    merged_before = merged[merged['prism:coverDate'].dt.date < datetime.date(2018, 1, 1)]
+    merged_after = merged[merged['prism:coverDate'].dt.date >= datetime.date(2018, 1, 1)]
+    before_2018 = (merged_before['is_ML'].sum() / len(merged_before['is_ML'])) * 100
+    after_2018 = (merged_after['is_ML'].sum() / len(merged_after['is_ML'])) * 100
+    print(f'Percent of papers "is_ML" before 2018: {before_2018}')
+    print(f'Percent of papers "is_ML" after 2018: {after_2018}')
 
 
 def make_df_topics(search_path):
