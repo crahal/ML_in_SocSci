@@ -6,6 +6,7 @@ import seaborn as sns
 import matplotlib.ticker as mtick
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 import matplotlib as mpl
+
 sns.set_style('ticks')
 mpl.rcParams['font.family'] = 'Helvetica'
 search_path = os.path.join(os.getcwd(), '..', 'data',
@@ -54,7 +55,7 @@ def figure_plotter():
                           width="110%",
                           height="135%",
                           loc='upper left',
-                          bbox_to_anchor=(0.06, 0.6, .24, .4),
+                          bbox_to_anchor=(0.0525, 0.6, .24, .4),
                           bbox_transform=ax1.transAxes)
     n_colors = 256
     palette = sns.diverging_palette(220, 20, n=n_colors)
@@ -68,7 +69,7 @@ def figure_plotter():
     y_labels = [v for v in y.unique()]
     x_to_num = {p[1]: p[0] for p in enumerate(x_labels)}
     y_to_num = {p[1]: p[0] for p in enumerate(y_labels)}
-    size_scale = 100
+    size_scale = 80
 
     def value_to_color(val):
         val_position = float((val - color_min)) / \
@@ -88,7 +89,7 @@ def figure_plotter():
     inset_ax.tick_params(left=True, right=False, top=False,
                          labelleft=True, labelright=False, labeltop=False,
                          rotation=0)
-
+    sns.despine(ax=inset_ax)
     axins = inset_axes(inset_ax, width="5%", height="110%", loc='right',
                        bbox_to_anchor=(0.2, 0.05, .875, 0.9),
                        bbox_transform=inset_ax.transAxes, borderpad=0)
@@ -188,9 +189,9 @@ def figure_plotter():
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
 
-    ax1.annotate("Google releases powerful\nTensorFlow library for ML",
-                 xy=(1371, comb_temporal.iloc[1371]['pc_ML'] + .02), xycoords='data',
-                 xytext=(1071, comb_temporal.iloc[1371]['pc_ML'] + 1.4),
+    ax1.annotate("RSF launches Computational\n    Social Science initiative",
+                 xy=(1356, comb_temporal.iloc[1356]['pc_ML'] + .02), xycoords='data',
+                 xytext=(1056, comb_temporal.iloc[1356]['pc_ML'] + 1.7),
                  fontsize=9.5, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
                            linewidth=0.25, edgecolor=(0, 0, 0, 1)),
@@ -198,28 +199,28 @@ def figure_plotter():
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
 
-    ax1.plot(0, comb_temporal.iloc[0]['pc_ML'], marker='o',
+    ax1.plot(0, comb_temporal.iloc[0]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
-    ax1.plot(491, comb_temporal.iloc[491]['pc_ML'], marker='o',
+    ax1.plot(491, comb_temporal.iloc[491]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
-    ax1.plot(865, comb_temporal.iloc[865]['pc_ML'], marker='o',
+    ax1.plot(865, comb_temporal.iloc[865]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
-    ax1.plot(978, comb_temporal.iloc[978]['pc_ML'] - .03, marker='o',
+    ax1.plot(978, comb_temporal.iloc[978]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
-    ax1.plot(1201, comb_temporal.iloc[1201]['pc_ML'] - 0.03, marker='o',
+    ax1.plot(1201, comb_temporal.iloc[1201]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
-    ax1.plot(1293, comb_temporal.iloc[1293]['pc_ML'], marker='o',
+    ax1.plot(1293, comb_temporal.iloc[1293]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
-    ax1.plot(1371, comb_temporal.iloc[1371]['pc_ML'] - 0.015, marker='o',
+    ax1.plot(1356, comb_temporal.iloc[1356]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
-    ax1.plot(1500, comb_temporal.iloc[1500]['pc_ML'] - 0.015, marker='o',
+    ax1.plot(1500, comb_temporal.iloc[1500]['pc_ML'] + 0.01, marker='o',
              markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
 
     ax1.vlines(0, ax1.get_ylim()[0], comb_temporal.iloc[0]['pc_ML'],
@@ -308,11 +309,12 @@ def figure_plotter():
     sns.despine(ax=ax1, left=True, right=False, bottom=False)
     sns.despine(ax=inset_ax, left=False, right=True, top=True, bottom=False)
     figure_path = os.path.join(search_path, '..', '..', '..', 'figures')
-
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.png'), bbox_inches='tight', dpi=600)
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.pdf'), bbox_inches='tight')
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.svg'), bbox_inches='tight')
 
+    inset_ax.spines['left'].set_bounds(0, 7)
+    inset_ax.spines['bottom'].set_bounds(0, 9)
 
-if __name__ == "__main__":
-    figure_plotter()
+
+figure_plotter()
