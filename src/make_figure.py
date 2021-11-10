@@ -14,6 +14,20 @@ search_path = os.path.join(os.getcwd(), '..', 'data',
 
 
 def figure_plotter():
+    import numpy as np
+    import pandas as pd
+    import os
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import matplotlib.ticker as mtick
+    from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+    import matplotlib as mpl
+
+    sns.set_style('ticks')
+    mpl.rcParams['font.family'] = 'Helvetica'
+    search_path = os.path.join(os.getcwd(), '..', 'data',
+                               'scopus', 'search')
+
     soci_temporal = pd.read_csv(os.path.join(search_path, 'temporal', 'SOCI.tsv'),
                                 sep='\t', index_col=0)
     busi_temporal = pd.read_csv(os.path.join(search_path, 'temporal', 'BUSI.tsv'),
@@ -43,12 +57,15 @@ def figure_plotter():
     fig, (ax1) = plt.subplots(1, 1, figsize=(15, 8))
     comb_temporal['pc_ML'].plot(ax=ax1, color='#377eb8', zorder=2)
     ax1.tick_params(axis='y', which='minor', bottom=False)
+    ax1.tick_params(axis='x', which='minor', bottom=False)
+    ax1.xaxis.set_tick_params(labelsize=14)
+    ax1.yaxis.set_tick_params(labelsize=14)
     ax1.set_xlim(0, ax1.get_xlim()[1])
     ax1.spines['bottom'].set_bounds(0, ax1.get_xlim()[1] - 18)
     ax1.set_ylim(-.1, ax1.get_ylim()[1])
     ax1.spines['right'].set_bounds(0, ax1.get_ylim()[1])
     ax1.yaxis.set_label_position("right")
-    ax1.set_ylabel('Proportion of Machine Learning  Articles', fontsize=13)
+    ax1.set_ylabel('Proportion of Machine Learning  Articles', fontsize=15)
     ax1.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=2))
 
     inset_ax = inset_axes(ax1,
@@ -84,6 +101,8 @@ def figure_plotter():
     inset_ax.set_xticklabels(x_labels, rotation=0)
     inset_ax.set_yticks([y_to_num[v] for v in y_labels])
     inset_ax.set_yticklabels(y_labels)
+    inset_ax.xaxis.set_tick_params(labelsize=13)
+    inset_ax.yaxis.set_tick_params(labelsize=13)
     inset_ax.set_xlim([-0.5, max([v for v in x_to_num.values()]) + 0.5])
     inset_ax.set_ylim([-0.5, max([v for v in y_to_num.values()]) + 0.5])
     inset_ax.tick_params(left=True, right=False, top=False,
@@ -142,29 +161,29 @@ def figure_plotter():
     ax1.annotate("Hopfield (1982) popularizes\n      'Hopfield networks'",
                  xy=(491, comb_temporal.iloc[491]['pc_ML'] + .03), xycoords='data',
                  xytext=(201, comb_temporal.iloc[491]['pc_ML'] + .3),
-                 fontsize=9.5, textcoords='data',
+                 fontsize=11, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.25, edgecolor=(0, 0, 0, 1)),
+                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
 
     ax1.annotate("Leo Breiman (1996):\n'Bagging Predictors'",
-                 xy=(865, comb_temporal.iloc[865]['pc_ML'] + .03), xycoords='data',
+                 xy=(865, comb_temporal.iloc[865]['pc_ML'] + .04), xycoords='data',
                  xytext=(600, comb_temporal.iloc[865]['pc_ML'] + .275),
-                 fontsize=9.5, textcoords='data',
+                 fontsize=11, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.25, edgecolor=(0, 0, 0, 1)),
+                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
 
     ax1.annotate("  Friedman et al. (2001): 'The\nElements of Statistical Learning'",
-                 xy=(978, comb_temporal.iloc[978]['pc_ML'] + .005), xycoords='data',
+                 xy=(978, comb_temporal.iloc[978]['pc_ML'] + .035), xycoords='data',
                  xytext=(680, comb_temporal.iloc[978]['pc_ML'] + .6),
-                 fontsize=9.5, textcoords='data',
+                 fontsize=11, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.25, edgecolor=(0, 0, 0, 1)),
+                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
@@ -172,29 +191,29 @@ def figure_plotter():
     ax1.annotate("   ImageNet improves\nvisual object recognition",
                  xy=(1201, comb_temporal.iloc[1201]['pc_ML'] + .03), xycoords='data',
                  xytext=(901, comb_temporal.iloc[1201]['pc_ML'] + .8),
-                 fontsize=9.5, textcoords='data',
+                 fontsize=11, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.25, edgecolor=(0, 0, 0, 1)),
+                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
 
     ax1.annotate("   Nate Silver predicts\n50 states in US election",
-                 xy=(1293, comb_temporal.iloc[1293]['pc_ML'] + .03), xycoords='data',
+                 xy=(1293, comb_temporal.iloc[1293]['pc_ML'] + .04), xycoords='data',
                  xytext=(1000, comb_temporal.iloc[1293]['pc_ML'] + 1.2),
-                 fontsize=9.5, textcoords='data',
+                 fontsize=11, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.25, edgecolor=(0, 0, 0, 1)),
+                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
 
     ax1.annotate("RSF launches Computational\n    Social Science initiative",
-                 xy=(1356, comb_temporal.iloc[1356]['pc_ML'] + .02), xycoords='data',
+                 xy=(1356, comb_temporal.iloc[1356]['pc_ML'] + .03), xycoords='data',
                  xytext=(1056, comb_temporal.iloc[1356]['pc_ML'] + 1.7),
-                 fontsize=9.5, textcoords='data',
+                 fontsize=11, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.25, edgecolor=(0, 0, 0, 1)),
+                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
                                  linewidth=0.5, edgecolor='k'))
@@ -248,19 +267,19 @@ def figure_plotter():
                  xytext=(1435, 0.195),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
     ax1.annotate('SOCI (' + str(round(soci_temporal.iloc[1500]['pc_ML'], 2)) + '%)',
                  xy=(1435, 0.12),
                  xytext=(1435, 0.12),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
     ax1.annotate('ECON (' + str(round(econ_temporal.iloc[1500]['pc_ML'], 2)) + '%)',
                  xy=(1435, 0.045),
                  xytext=(1435, 0.045),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
 
     ax1.annotate('', xy=(1293, 0.155),
                  xytext=(1232, 0.155),
@@ -270,19 +289,19 @@ def figure_plotter():
                  xytext=(1226, 0.195),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
     ax1.annotate('SOCI (' + str(round(soci_temporal.iloc[1292]['pc_ML'], 2)) + '%)',
                  xy=(1226, 0.12),
                  xytext=(1226, 0.12),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
     ax1.annotate('ECON (' + str(round(econ_temporal.iloc[1292]['pc_ML'], 2)) + '%)',
                  xy=(1226, 0.045),
                  xytext=(1226, 0.045),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
 
     ax1.annotate('', xy=(978, 0.155),
                  xytext=(917, 0.155),
@@ -292,19 +311,21 @@ def figure_plotter():
                  xytext=(912, 0.195),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
     ax1.annotate('SOCI (' + str(round(soci_temporal.iloc[977]['pc_ML'], 2)) + '%)',
                  xy=(912, 0.12),
                  xytext=(912, 0.12),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
     ax1.annotate('ECON (' + str(round(econ_temporal.iloc[977]['pc_ML'], 2)) + '%)',
                  xy=(912, 0.045),
                  xytext=(912, 0.045),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=9)
+                 fontsize=10)
+    inset_ax.spines['left'].set_bounds(0, 7)
+    inset_ax.spines['bottom'].set_bounds(0, 9)
 
     sns.despine(ax=ax1, left=True, right=False, bottom=False)
     sns.despine(ax=inset_ax, left=False, right=True, top=True, bottom=False)
@@ -312,9 +333,5 @@ def figure_plotter():
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.png'), bbox_inches='tight', dpi=600)
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.pdf'), bbox_inches='tight')
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.svg'), bbox_inches='tight')
-
-    inset_ax.spines['left'].set_bounds(0, 7)
-    inset_ax.spines['bottom'].set_bounds(0, 9)
-
 
 figure_plotter()
