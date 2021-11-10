@@ -1,6 +1,7 @@
 query_dict = {"Basic ML": ["machine learning", "machinelearning", "machne learning", "machne lerning",
                            "machine lerning", "artificial intelligence", "artifical intelligence",
-                           "artificialintelligence", "scikit learn", "scikitlearn"],
+                           "artificialintelligence", "scikit learn", "scikitlearn",
+                           "statistical learning", "statisticallearning", "statisticallerning", "statistical lerning"],
               "Deep Learning": ["deep learning", "neural net", "neuralnet", "reinforcement learning",
                                 "convolutional neural", "tensorflow", "pytorch", "transfer learning"],
               "Support Vector": ["support vector", "supportvector"],
