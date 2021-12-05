@@ -1,4 +1,4 @@
-<img src="./figures/ML_Over_Time_v2.png" width="1100"/>
+<img src="./figures/ML_Over_Time_1400dpi.png" width="1100"/>
 
 # The Rise of Machine Learning in the Academic Social Sciences
 
