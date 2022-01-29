@@ -3,10 +3,10 @@
 # The Rise of Machine Learning in the Academic Social Sciences
 
 ![coverage](https://img.shields.io/badge/Purpose-Commentary-yellow)
-[![Generic badge](https://img.shields.io/badge/Python-3.8-red.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/License-GNU3.0-purple.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/BuildPassing-Yes-orange.svg)](https://shields.io/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5918226.svg)](https://doi.org/10.5281/zenodo.5918226)
 ---
 
 A short bit of code to accompany the commentary entitled: "The Rise of Machine Learning in the Academic Social Sciences" with [Mark Verhagen](https://github.com/MarkDVerhagen) and [Dave Kirk](https://www.nuffield.ox.ac.uk/people/profiles/david-kirk/). A preprint of the short commentary can be found [here](https://osf.io/preprints/socarxiv/gydve/).
