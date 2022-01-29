@@ -7,21 +7,9 @@ import matplotlib.ticker as mtick
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 import matplotlib as mpl
 
-sns.set_style('ticks')
-mpl.rcParams['font.family'] = 'Helvetica'
-search_path = os.path.join(os.getcwd(), '..', 'data',
-                           'scopus', 'search')
-
 
 def figure_plotter():
-    import numpy as np
-    import pandas as pd
-    import os
-    import matplotlib.pyplot as plt
-    import seaborn as sns
-    import matplotlib.ticker as mtick
-    from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-    import matplotlib as mpl
+    """A function to plot the main result of the paper"""
 
     sns.set_style('ticks')
     mpl.rcParams['font.family'] = 'Helvetica'
@@ -54,8 +42,8 @@ def figure_plotter():
         with open(os.path.join(search_path, 'scalars', subj + '.txt'), 'r') as f:
             scalar_dict[subj] = float(f.read())
 
-    fig, (ax1) = plt.subplots(1, 1, figsize=(15, 8))
-    comb_temporal['pc_ML'].plot(ax=ax1, color='#377eb8', zorder=2)
+    fig, (ax1) = plt.subplots(1, 1, figsize=(14, 14 / 1.618))
+    comb_temporal['pc_ML'].plot(ax=ax1, color='#3e8abb', zorder=2)
     ax1.tick_params(axis='y', which='minor', bottom=False)
     ax1.tick_params(axis='x', which='minor', bottom=False)
     ax1.xaxis.set_tick_params(labelsize=14)
@@ -65,14 +53,14 @@ def figure_plotter():
     ax1.set_ylim(-.1, ax1.get_ylim()[1])
     ax1.spines['right'].set_bounds(0, ax1.get_ylim()[1])
     ax1.yaxis.set_label_position("right")
-    ax1.set_ylabel('Proportion of Machine Learning  Articles', fontsize=15)
+    ax1.set_ylabel('Proportion of Machine Learning  Articles', fontsize=16)
     ax1.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=2))
 
     inset_ax = inset_axes(ax1,
                           width="110%",
-                          height="135%",
+                          height="120%",
                           loc='upper left',
-                          bbox_to_anchor=(0.0525, 0.6, .24, .4),
+                          bbox_to_anchor=(0.0825, 0.6, .24, .4),
                           bbox_transform=ax1.transAxes)
     n_colors = 256
     palette = sns.diverging_palette(220, 20, n=n_colors)
@@ -103,7 +91,7 @@ def figure_plotter():
     inset_ax.set_yticklabels(y_labels)
     inset_ax.xaxis.set_tick_params(labelsize=13)
     inset_ax.yaxis.set_tick_params(labelsize=13)
-    inset_ax.set_xlim([-0.5, max([v for v in x_to_num.values()]) + 0.5])
+    inset_ax.set_xlim([-.66, max([v for v in x_to_num.values()]) + 0.5])
     inset_ax.set_ylim([-0.5, max([v for v in y_to_num.values()]) + 0.5])
     inset_ax.tick_params(left=True, right=False, top=False,
                          labelleft=True, labelright=False, labeltop=False,
@@ -120,6 +108,7 @@ def figure_plotter():
     axins.set_ylim(bar_y.min(), bar_y.max())
     axins.set_xlim(1, 2)
     axins.grid(False)
+    axins.yaxis.set_tick_params(labelsize=13)
     axins.set_facecolor('white')
     axins.set_xticks([])
     axins.set_yticks(np.linspace(min(bar_y), max(bar_y), 5))
@@ -157,90 +146,91 @@ def figure_plotter():
     #                 horizontalalignment='right',
     #                 verticalalignment='bottom',
     #                 fontsize=9)
-
+    annot_fontsize = 14
     ax1.annotate("Hopfield (1982) popularizes\n      'Hopfield networks'",
-                 xy=(491, comb_temporal.iloc[491]['pc_ML'] + .03), xycoords='data',
+                 xy=(201, comb_temporal.iloc[491]['pc_ML'] + .3), xycoords='data',
                  xytext=(201, comb_temporal.iloc[491]['pc_ML'] + .3),
-                 fontsize=11, textcoords='data',
+                 fontsize=annot_fontsize, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
+                           linewidth=.6, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
-                                 linewidth=0.5, edgecolor='k'))
+                                 linewidth=0.5, edgecolor='w'))
 
     ax1.annotate("Leo Breiman (1996):\n'Bagging Predictors'",
-                 xy=(865, comb_temporal.iloc[865]['pc_ML'] + .04), xycoords='data',
-                 xytext=(600, comb_temporal.iloc[865]['pc_ML'] + .275),
-                 fontsize=11, textcoords='data',
+                 xy=(650, comb_temporal.iloc[865]['pc_ML'] + .275), xycoords='data',
+                 xytext=(650, comb_temporal.iloc[865]['pc_ML'] + .275),
+                 fontsize=annot_fontsize, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
+                           linewidth=.6, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
-                                 linewidth=0.5, edgecolor='k'))
+                                 linewidth=0.5, edgecolor='w'))
 
     ax1.annotate("  Friedman et al. (2001): 'The\nElements of Statistical Learning'",
-                 xy=(978, comb_temporal.iloc[978]['pc_ML'] + .035), xycoords='data',
-                 xytext=(680, comb_temporal.iloc[978]['pc_ML'] + .6),
-                 fontsize=11, textcoords='data',
+                 xy=(710, comb_temporal.iloc[978]['pc_ML'] + .6), xycoords='data',
+                 xytext=(710, comb_temporal.iloc[978]['pc_ML'] + .6),
+                 fontsize=annot_fontsize, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
+                           linewidth=.6, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
-                                 linewidth=0.5, edgecolor='k'))
+                                 linewidth=0.5, edgecolor='w'))
 
     ax1.annotate("   ImageNet improves\nvisual object recognition",
-                 xy=(1201, comb_temporal.iloc[1201]['pc_ML'] + .03), xycoords='data',
-                 xytext=(901, comb_temporal.iloc[1201]['pc_ML'] + .8),
-                 fontsize=11, textcoords='data',
+                 xy=(935, comb_temporal.iloc[1201]['pc_ML'] + .8), xycoords='data',
+                 xytext=(935, comb_temporal.iloc[1201]['pc_ML'] + .8),
+                 fontsize=annot_fontsize, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
+                           linewidth=.6, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
-                                 linewidth=0.5, edgecolor='k'))
+                                 linewidth=0.5, edgecolor='w'))
 
     ax1.annotate("   Nate Silver predicts\n50 states in US election",
-                 xy=(1293, comb_temporal.iloc[1293]['pc_ML'] + .04), xycoords='data',
-                 xytext=(1000, comb_temporal.iloc[1293]['pc_ML'] + 1.2),
-                 fontsize=11, textcoords='data',
+                 xy=(1020, comb_temporal.iloc[1293]['pc_ML'] + 1.235), xycoords='data',
+                 xytext=(1020, comb_temporal.iloc[1293]['pc_ML'] + 1.235),
+                 fontsize=annot_fontsize, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
+                           linewidth=.6, edgecolor='k'),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
-                                 linewidth=0.5, edgecolor='k'))
+                                 linewidth=0.5, edgecolor='w'))
 
     ax1.annotate("RSF launches Computational\n    Social Science initiative",
-                 xy=(1356, comb_temporal.iloc[1356]['pc_ML'] + .03), xycoords='data',
-                 xytext=(1056, comb_temporal.iloc[1356]['pc_ML'] + 1.7),
-                 fontsize=11, textcoords='data',
+                 xy=(1040, comb_temporal.iloc[1356]['pc_ML'] + 1.7), xycoords='data',
+                 xytext=(1040, comb_temporal.iloc[1356]['pc_ML'] + 1.7),
+                 fontsize=annot_fontsize, textcoords='data',
                  bbox=dict(boxstyle="round, pad=0.75", fc="w",
-                           linewidth=0.5, edgecolor=(0, 0, 0, 1)),
+                           linewidth=.6, edgecolor=(0, 0, 0, 1)),
                  arrowprops=dict(arrowstyle="->",
                                  connectionstyle="arc3, rad=-0.3",
-                                 linewidth=0.5, edgecolor='k'))
+                                 linewidth=0.5, edgecolor='w',
+                                 linestyle='--'))
 
     ax1.plot(0, comb_temporal.iloc[0]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.plot(491, comb_temporal.iloc[491]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.plot(865, comb_temporal.iloc[865]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.plot(978, comb_temporal.iloc[978]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.plot(1201, comb_temporal.iloc[1201]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.plot(1293, comb_temporal.iloc[1293]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.plot(1356, comb_temporal.iloc[1356]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.plot(1500, comb_temporal.iloc[1500]['pc_ML'] + 0.01, marker='o',
-             markersize=8, markerfacecolor='#f79598', markeredgecolor='k')
+             markersize=8, markerfacecolor='#f46d43', markeredgecolor='k')
 
     ax1.vlines(0, ax1.get_ylim()[0], comb_temporal.iloc[0]['pc_ML'],
                colors='k', linewidth=0.8, linestyle=(0, (5, 5)), color='#F47174')
@@ -260,26 +250,26 @@ def figure_plotter():
                colors='k', linewidth=0.8, linestyle=(0, (5, 5)), color='#F47174')
 
     ax1.annotate('', xy=(1501, 0.155),
-                 xytext=(1440, 0.155),
+                 xytext=(1465, 0.155),
                  arrowprops=dict(arrowstyle='-|>', color='#ffb94e'))
     ax1.annotate('BUSI (' + str(round(busi_temporal.iloc[1500]['pc_ML'], 2)) + '%)',
-                 xy=(1435, 0.195),
-                 xytext=(1435, 0.195),
+                 xy=(1460, 0.195),
+                 xytext=(1460, 0.195),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
     ax1.annotate('SOCI (' + str(round(soci_temporal.iloc[1500]['pc_ML'], 2)) + '%)',
-                 xy=(1435, 0.12),
-                 xytext=(1435, 0.12),
+                 xy=(1460, 0.12),
+                 xytext=(1460, 0.12),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
     ax1.annotate('ECON (' + str(round(econ_temporal.iloc[1500]['pc_ML'], 2)) + '%)',
-                 xy=(1435, 0.045),
-                 xytext=(1435, 0.045),
+                 xy=(1460, 0.045),
+                 xytext=(1460, 0.045),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
 
     ax1.annotate('', xy=(1293, 0.155),
                  xytext=(1232, 0.155),
@@ -289,19 +279,19 @@ def figure_plotter():
                  xytext=(1226, 0.195),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
     ax1.annotate('SOCI (' + str(round(soci_temporal.iloc[1292]['pc_ML'], 2)) + '%)',
                  xy=(1226, 0.12),
                  xytext=(1226, 0.12),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
     ax1.annotate('ECON (' + str(round(econ_temporal.iloc[1292]['pc_ML'], 2)) + '%)',
                  xy=(1226, 0.045),
                  xytext=(1226, 0.045),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
 
     ax1.annotate('', xy=(978, 0.155),
                  xytext=(917, 0.155),
@@ -311,27 +301,70 @@ def figure_plotter():
                  xytext=(912, 0.195),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
     ax1.annotate('SOCI (' + str(round(soci_temporal.iloc[977]['pc_ML'], 2)) + '%)',
                  xy=(912, 0.12),
                  xytext=(912, 0.12),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
     ax1.annotate('ECON (' + str(round(econ_temporal.iloc[977]['pc_ML'], 2)) + '%)',
                  xy=(912, 0.045),
                  xytext=(912, 0.045),
                  horizontalalignment='right',
                  verticalalignment='bottom',
-                 fontsize=10)
+                 fontsize=11)
     inset_ax.spines['left'].set_bounds(0, 7)
     inset_ax.spines['bottom'].set_bounds(0, 9)
+
+    from matplotlib.patches import FancyArrowPatch
+    myArrow = FancyArrowPatch(posA=(1293, comb_temporal.iloc[1293]['pc_ML'] + .035),
+                              posB=(1293, comb_temporal.iloc[1293]['pc_ML'] + 1.2),
+                              arrowstyle='<|-', linewidth=.6,
+                              linestyle='-', edgecolor=(0, 0, 0, 1), facecolor='#f46d43',
+                              mutation_scale=20)
+    ax1.add_artist(myArrow)
+    myArrow = FancyArrowPatch(posA=(1356, comb_temporal.iloc[1356]['pc_ML'] + .035),
+                              posB=(1356, comb_temporal.iloc[1356]['pc_ML'] + 1.7),
+                              arrowstyle='<|-', linewidth=.6,
+                              linestyle='-', edgecolor=(0, 0, 0, 1), facecolor='#f46d43',
+                              mutation_scale=20)
+    ax1.add_artist(myArrow)
+
+    myArrow = FancyArrowPatch(posA=(978, comb_temporal.iloc[978]['pc_ML'] + .035),
+                              posB=(978, comb_temporal.iloc[978]['pc_ML'] + .6),
+                              arrowstyle='<|-', linewidth=.6,
+                              linestyle='-', edgecolor=(0, 0, 0, 1), facecolor='#f46d43',
+                              mutation_scale=20)
+    ax1.add_artist(myArrow)
+
+    myArrow = FancyArrowPatch(posA=(1201, comb_temporal.iloc[1201]['pc_ML'] + .035),
+                              posB=(1201, comb_temporal.iloc[1201]['pc_ML'] + .8),
+                              arrowstyle='<|-', linewidth=.75,
+                              linestyle='-', edgecolor=(0, 0, 0, 1), facecolor='#f46d43',
+                              mutation_scale=20)
+    ax1.add_artist(myArrow)
+
+    myArrow = FancyArrowPatch(posA=(865, comb_temporal.iloc[865]['pc_ML'] + .035),
+                              posB=(865, comb_temporal.iloc[865]['pc_ML'] + .275),
+                              arrowstyle='<|-', linewidth=.6,
+                              linestyle='-', edgecolor=(0, 0, 0, 1), facecolor='#f46d43',
+                              mutation_scale=20)
+    ax1.add_artist(myArrow)
+
+    myArrow = FancyArrowPatch(posA=(491, comb_temporal.iloc[491]['pc_ML'] + .035),
+                              posB=(491, comb_temporal.iloc[491]['pc_ML'] + .3),
+                              arrowstyle='<|-', linewidth=.6,
+                              linestyle='-', edgecolor=(0, 0, 0, 1), facecolor='#f46d43',
+                              mutation_scale=20)
+    ax1.add_artist(myArrow)
 
     sns.despine(ax=ax1, left=True, right=False, bottom=False)
     sns.despine(ax=inset_ax, left=False, right=True, top=True, bottom=False)
     figure_path = os.path.join(search_path, '..', '..', '..', 'figures')
-    plt.savefig(os.path.join(figure_path, 'ML_Over_Time.png'), bbox_inches='tight', dpi=600)
+    plt.savefig(os.path.join(figure_path, 'ML_Over_Time.png'), bbox_inches='tight', dpi=1400)
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.pdf'), bbox_inches='tight')
     plt.savefig(os.path.join(figure_path, 'ML_Over_Time.svg'), bbox_inches='tight')
 
-figure_plotter()
+if __name__ == "__main__":
+    figure_plotter()
